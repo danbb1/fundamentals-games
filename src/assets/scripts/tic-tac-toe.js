@@ -4,8 +4,7 @@ import Player from "./tic-tac-toe/player"
 
 const draw = (context, game) => {
   game.setContext(context)
-  game.drawBoard()
-  game.drawMoves()
+  game.drawGame()
 }
 
 const setStrategy = (_player, _strategy) => {
@@ -36,7 +35,7 @@ const compMove = (_player, _game) => {
       ? _player.getBestMoveMinMax(_game)
       : _player.getBestMoveMonteCarlo(_game)
   _game.handleMove(move[0], move[1])
-  _game.drawMoves()
+  _game.drawGame()
   if (_game.result()) setResult(_game.result())
 }
 
@@ -47,7 +46,7 @@ const handleClick = (event, _canvas, _game, _player) => {
   const y = event.clientY - rect.top
 
   _game.handleClick(x, y)
-  _game.drawMoves()
+  _game.drawGame()
   if (!_game.result()) {
     compMove(_player, _game)
   } else {

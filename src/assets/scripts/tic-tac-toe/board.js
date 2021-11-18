@@ -1,4 +1,10 @@
 class Board {
+  /**
+   * Creates a board for Tic Tac Toe
+   * @param {number} size The size of one side of the board
+   * @param {Array} state Optional: set initial state
+   * @param {string} player Optional: set initial player, default X
+   */
   constructor(size, state = null, player = "X") {
     this.state = state || [...Array(3)].map(() => Array(3).fill(null))
     this.size = size
@@ -8,19 +14,17 @@ class Board {
   }
 
   setContext(context) {
+    /**
+     * Sets the context for drawing the board
+     * @param {Object} context The 2d context of a canvas
+     */
     this.context = context
   }
 
-  setSize(size) {
-    this.context.canvas.width = size
-    this.context.canvas.height = size
-    this.size = size
-
-    this.drawBoard()
-    this.drawMoves()
-  }
-
   setSquares() {
+    /**
+     * Sets an an array recording the minimum and maximum value of X and Y coordinates for each square. Aids in drawing.
+     */
     const squares = []
 
     for (let row = 0; row < 3; row += 1) {
@@ -36,6 +40,19 @@ class Board {
     }
 
     return squares
+  }
+
+  setSize(size) {
+    /**
+     * Updates size of board
+     * @param {number} size The size of one side of the board
+     */
+    this.context.canvas.width = size
+    this.context.canvas.height = size
+    this.size = size
+
+    this.drawBoard()
+    this.drawMoves()
   }
 
   drawBoard() {
@@ -88,6 +105,11 @@ class Board {
         if (col === "O") this.drawO(rowIndex, colIndex)
       })
     })
+  }
+
+  drawGame() {
+    this.drawBoard()
+    this.drawMoves()
   }
 
   handleClick(x, y) {
