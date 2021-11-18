@@ -1,5 +1,19 @@
 .canvas-wrapper {
-  height: 25rem;
-  width: 25rem;
-  margin: 2rem auto;
+  width: 100%;
+  max-width: 25rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.bottom-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 3rem;
+
+  & > p {
+    font-size: var(--600);
+    font-weight: 800;
+  }
 }

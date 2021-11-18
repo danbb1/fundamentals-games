@@ -8,10 +8,15 @@ const fonts = async () => {
     cssFile: "./fonts.css",
   })
 
-  // Grabs fonts and CSS from google and puts in the dist folder
-  const result = await instance.download(
-    "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700"
+  const url = GetGoogleFonts.constructUrl(
+    {
+      "Open Sans": [400, 700],
+    },
+    ["latin"]
   )
+
+  // Grabs fonts and CSS from google and puts in the dist folder
+  const result = await instance.download(`${url}&display=swap`)
 
   return result
 }

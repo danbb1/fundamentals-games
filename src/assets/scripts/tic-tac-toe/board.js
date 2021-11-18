@@ -2,13 +2,22 @@ class Board {
   constructor(size, state = null, player = "X") {
     this.state = state || [...Array(3)].map(() => Array(3).fill(null))
     this.size = size
-    this.squareSize = size / 3
+    this.squareSize = this.size / 3
     this.squares = this.setSquares()
     this.player = player
   }
 
   setContext(context) {
     this.context = context
+  }
+
+  setSize(size) {
+    this.context.canvas.width = size
+    this.context.canvas.height = size
+    this.size = size
+
+    this.drawBoard()
+    this.drawMoves()
   }
 
   setSquares() {

@@ -9,8 +9,8 @@ class Board {
     this.zombies = []
     this.size = size
     this.tileSize = {
-      width: size.width / cols,
-      height: size.height / rows,
+      width: this.size / cols,
+      height: this.size / rows,
     }
     this.rows = rows
     this.cols = cols
@@ -24,6 +24,14 @@ class Board {
 
   setContext(context) {
     this.context = context
+  }
+
+  setSize(size) {
+    this.context.canvas.width = size
+    this.context.canvas.height = size
+    this.size = size
+
+    this.drawGame()
   }
 
   setAdding(entity) {
@@ -120,25 +128,19 @@ class Board {
 
   drawBoard() {
     this.context.fillStyle = "#ffffff"
-    this.context.fillRect(0, 0, this.size.width, this.size.height)
+    this.context.fillRect(0, 0, this.size, this.size)
     this.context.strokeStyle = "#000000"
     this.context.lineWidth = 1
     this.context.beginPath()
     for (let i = 0; i <= this.rows; i += 1) {
-      this.context.moveTo(0, i * 1 * (this.size.height / this.rows))
-      this.context.lineTo(
-        this.size.width,
-        i * 1 * (this.size.height / this.rows)
-      )
+      this.context.moveTo(0, i * 1 * (this.size / this.rows))
+      this.context.lineTo(this.size, i * 1 * (this.size / this.rows))
       this.context.closePath()
       this.context.stroke()
     }
     for (let i = 0; i <= this.cols; i += 1) {
-      this.context.moveTo(i * 1 * (this.size.width / this.cols), 0)
-      this.context.lineTo(
-        i * 1 * (this.size.width / this.cols),
-        this.size.height
-      )
+      this.context.moveTo(i * 1 * (this.size / this.cols), 0)
+      this.context.lineTo(i * 1 * (this.size / this.cols), this.size)
       this.context.closePath()
       this.context.stroke()
     }

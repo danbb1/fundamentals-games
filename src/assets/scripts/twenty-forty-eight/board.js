@@ -4,8 +4,8 @@ class Board {
     this.state = state || [...Array(rows)].map(() => Array(cols).fill(null))
     this.size = size
     this.tileSize = {
-      width: size.width / cols,
-      height: size.height / rows,
+      width: this.size / cols,
+      height: this.size / rows,
     }
     this.rows = rows
     this.cols = cols
@@ -34,14 +34,21 @@ class Board {
       1024: "#990f02",
       2048: "#dd571c",
     }
+    this.score = 0
+    this.best = 0
   }
 
   setContext(context) {
     this.context = context
   }
 
-  checkResult() {
-    return this.result
+  setSize(size) {
+    this.context.canvas.width = size
+    this.context.canvas.height = size
+    this.size = size
+
+    this.drawBoard()
+    this.drawTiles()
   }
 
   drawTiles() {
@@ -55,13 +62,14 @@ class Board {
             this.tileSize.width - 20,
             this.tileSize.height - 20
           )
-          this.context.font = "32px Arial"
+          this.context.font = "24px Arial"
           this.context.fillStyle = "#000000"
           this.context.textAlign = "center"
+          this.context.textBaseline = "middle"
           this.context.fillText(
             `${col}`,
-            colIndex * this.tileSize.width + this.tileSize.width / 2 - 5,
-            rowIndex * this.tileSize.height + this.tileSize.height / 2 + 10
+            colIndex * this.tileSize.width + this.tileSize.width / 2,
+            rowIndex * this.tileSize.height + this.tileSize.height / 2
           )
         }
       })
@@ -70,24 +78,18 @@ class Board {
 
   drawBoard() {
     this.context.fillStyle = "#ffe5d4"
-    this.context.fillRect(0, 0, this.size.width, this.size.height)
+    this.context.fillRect(0, 0, this.size, this.size)
     this.context.strokeStyle = "#ffffff"
     this.context.beginPath()
     for (let i = 0; i < this.rows; i += 1) {
-      this.context.moveTo(0, i * 1 * (this.size.height / this.rows))
-      this.context.lineTo(
-        this.size.width,
-        i * 1 * (this.size.height / this.rows)
-      )
+      this.context.moveTo(0, i * 1 * (this.size / this.rows))
+      this.context.lineTo(this.size, i * 1 * (this.size / this.rows))
       this.context.closePath()
       this.context.stroke()
     }
     for (let i = 0; i < this.cols; i += 1) {
-      this.context.moveTo(i * 1 * (this.size.width / this.cols), 0)
-      this.context.lineTo(
-        i * 1 * (this.size.width / this.cols),
-        this.size.height
-      )
+      this.context.moveTo(i * 1 * (this.size / this.cols), 0)
+      this.context.lineTo(i * 1 * (this.size / this.cols), this.size)
       this.context.closePath()
       this.context.stroke()
     }
@@ -116,6 +118,9 @@ class Board {
 
       if (nextValue && value === nextValue) {
         shiftedLine[index] *= 2
+        this.score += shiftedLine[index]
+        this.best = Math.max(this.best, this.score)
+
         shiftedLine[index + 1] = 0
       }
     })
@@ -124,8 +129,10 @@ class Board {
   }
 
   traverseGrid(startCell, direction) {
+    // Temporary array to store values from start of array no matter the direction.
     const tempValues = []
 
+    // Number of times the loop will run, dependent on the amount of tiles in a given direction.
     const steps =
       direction === "UP" || direction === "DOWN" ? this.rows : this.cols
 
@@ -135,10 +142,12 @@ class Board {
       tempValues.push(this.state[row][col])
     }
 
+    // Merges values to start of array
     const merged = this.mergeLine(tempValues)
 
     let hasChanged = 0
 
+    // Re-inserts the merged values into the game's state. If a value has changed, increments has changed.
     for (let i = 0; i < steps; i += 1) {
       const row = startCell[0] + i * this.directions[direction][0]
       const col = startCell[1] + i * this.directions[direction][1]
@@ -153,15 +162,16 @@ class Board {
 
   handleMove(direction) {
     const initialTiles = this.initialTiles[direction]
-    let rowsAbleToMove = 0
+    let linesAbleToMove = 0
 
+    // For each tile in the direction's starting tiles, traverses the grid and updates the line. Receives back the number of tiles updated in the row and updates the number of lines changed.
     initialTiles.forEach(tile => {
-      const movedRows = this.traverseGrid(tile, direction)
+      const changedTiles = this.traverseGrid(tile, direction)
 
-      rowsAbleToMove = movedRows > 0 ? rowsAbleToMove + 1 : rowsAbleToMove
+      linesAbleToMove = changedTiles > 0 ? linesAbleToMove + 1 : linesAbleToMove
     })
 
-    if (rowsAbleToMove > 0) this.newTile()
+    if (linesAbleToMove > 0) this.newTile()
 
     this.context.clearRect(0, 0, this.size, this.size)
     this.drawBoard()
@@ -170,6 +180,7 @@ class Board {
 
   newGame() {
     this.result = null
+    this.score = 0
     this.state = [...Array(this.rows)].map(() => Array(this.cols).fill(null))
     this.context.clearRect(0, 0, this.size, this.size)
     this.newTile()

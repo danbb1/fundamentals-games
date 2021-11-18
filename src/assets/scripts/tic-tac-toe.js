@@ -55,16 +55,26 @@ const handleClick = (event, _canvas, _game, _player) => {
   }
 }
 
+const handleResize = (_context, _game) => {
+  const newSize = getCanvasSize("canvasWrapper")
+
+  _game.setSize(newSize.width)
+}
+
 const main = () => {
   const size = getCanvasSize("canvasWrapper")
   const canvas = document.getElementById("ticTacToeCanvas")
 
   if (canvas) {
-    const game = new Board(size.height)
+    const game = new Board(size.width)
     const player = new Player()
 
-    canvas.height = size.height
+    canvas.height = size.width
     canvas.width = size.width
+
+    const context = canvas.getContext("2d")
+
+    draw(context, game)
 
     setStrategy(player, "minimax")
 
@@ -85,9 +95,7 @@ const main = () => {
       .getElementById("setMonteCarloButton")
       .addEventListener("click", () => setStrategy(player, "montecarlo"))
 
-    const context = canvas.getContext("2d")
-
-    draw(context, game)
+    window.addEventListener("resize", () => handleResize(context, game))
   }
 }
 

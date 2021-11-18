@@ -14,6 +14,14 @@
   color: var(--light);
 }
 
+nav {
+  padding-top: 1rem;
+
+  @media screen and (--md) {
+    padding-top: 0;
+  }
+}
+
 .nav-link {
   padding: 0 0.5rem;
 

@@ -21,3 +21,31 @@
     margin: 0 0.25rem;
   }
 }
+
+.game-wrapper {
+
+  & > div:first-child {
+    margin-bottom: 1rem;
+
+    & > p {
+      max-width: 65ch;
+    }
+  }
+
+  @media screen and (--md) {
+    display: flex;
+
+    & > div {
+      width: 50%;
+    }
+
+    & > div:first-child {
+      margin-bottom: 0;
+      margin-right: 0.5rem;
+    }
+
+    & > div:nth-child(2) {
+      margin-left: 0.5rem;
+    }
+  }
+}

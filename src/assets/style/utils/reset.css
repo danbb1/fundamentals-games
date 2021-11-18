@@ -69,7 +69,8 @@ body {
   color: var(--secondary);
   background-color: var(--primary);
   line-height: 1.6;
-  font-size: var(--500);
+  font-size: var(--400);
+  padding-bottom: 2rem;
 }
 
 

@@ -1,11 +1,18 @@
 {% extends "layouts/base.html" %}
 {% set stylesheets = ['game.css'] %}
 {% block content %}
-  <div class="flow">
-    {% if '/zombies' in page.url %}
-      {% include "partials/zombie-radios.html" %}
-    {% endif %}
-    {{ content | safe }}
-    {% include "partials/canvas.html" %}
+  <div class="wrapper flow">
+    <h1>{{ heading }}</h1>
+    <div class="game-wrapper">
+      <div class="flow">
+        {{ content | safe }}
+      </div>
+      <div class="flow">
+        {% if '/zombies' in page.url %}
+          {% include "partials/zombie-radios.html" %}
+        {% endif %}
+        {% include "partials/canvas.html" %}
+      </div>
+    </div>
   </div>
 {% endblock %}
