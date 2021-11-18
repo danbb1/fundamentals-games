@@ -1,0 +1,16 @@
+<span id="result"></span>
+<div class="canvas-wrapper" id="canvasWrapper">
+  <canvas id="{{ canvasId }}"/>
+</div>
+{% if gameLabels %}
+  {% for label in gameLabels %}
+    <span id="{{ label.id }}" ></span>
+  {% endfor %}
+{% endif %}
+{% if gameButtons %}
+  <div class="game-buttons | wrapper">
+    {% for button in gameButtons %}
+      <button type="button" id="{{ button.id }}" >{{ button.label }}</button>
+    {% endfor %}
+  </div>
+{% endif %}

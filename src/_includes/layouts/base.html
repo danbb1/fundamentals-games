@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    {% include "partials/meta-info.html" %}
+    <style>
+      {% include "css/critical.css" %}
+    </style>
+    <link rel="stylesheet" media="print" href="/fonts/fonts.css" onload="this.media='all'"/>
+    {# Add facility for pages to declare an array of stylesheet paths #}
+    {% if stylesheets %}
+      {% for item in stylesheets %}
+        <link rel="stylesheet" media="print" href="/css/{{ item }}" onload="this.media='all'"/>
+      {% endfor %}
+    {% endif %}
+  </head>
+  <body>
+    <div class="site-wrap">
+      {% include "partials/site-head.html" %}
+      <main tabindex="-1" id="main-content">
+        {% block content %}{% endblock %}
+      </main>
+      <footer role="contentinfo" class="site-foot"></footer>
+    </div>
+    <script src="/js/main.js"></script>
+    {% if scripts %}
+      {% for item in scripts %}
+        <script src="/js/{{ item }}"></script>
+      {% endfor %}
+    {% endif %}
+  </body>
+</html>

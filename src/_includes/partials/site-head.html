@@ -1,0 +1,28 @@
+<header role="banner" class="site-head">
+  <div class="wrapper">
+    <div class="site-head__inner">
+      <a
+        href="/"
+        aria-label="{{ site.name }} - home"
+        class="site-head__brand | frame__outset"
+      >
+        JS Games
+      </a>
+      <nav aria-label="Primary">
+        {% for item in navigation.items %}
+          <a
+          class="nav-link"
+          href="{{ item.url }}"
+          {{
+          helpers.getLinkActiveState(item.url,
+          page.url)
+          |
+          safe
+          }}
+          >{{ item.text }}</a
+        >
+        {% endfor %}
+      </nav>
+    </div>
+  </div>
+</header>

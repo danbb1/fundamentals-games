@@ -1,0 +1,23 @@
+.site-head {
+  padding: 3rem 0;
+}
+
+.site-head__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.site-head__brand {
+  padding: 1rem 2rem;
+  color: var(--light);
+}
+
+.nav-link {
+  padding: 0 0.5rem;
+
+  &[aria-current="page"] {
+    text-decoration: underline;
+  }
+}

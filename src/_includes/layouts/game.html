@@ -1,0 +1,11 @@
+{% extends "layouts/base.html" %}
+{% set stylesheets = ['game.css'] %}
+{% block content %}
+  <div class="flow">
+    {% if '/zombies' in page.url %}
+      {% include "partials/zombie-radios.html" %}
+    {% endif %}
+    {{ content | safe }}
+    {% include "partials/canvas.html" %}
+  </div>
+{% endblock %}

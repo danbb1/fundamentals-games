@@ -1,0 +1,20 @@
+{
+  "items": [
+    {
+      "text": "Home",
+      "url": "/"
+    },
+    {
+      "text": "Tic Tac Toe",
+      "url": "/tic-tac-toe/"
+    },
+    {
+      "text": "2048",
+      "url": "/2048/"
+    },
+    {
+      "text": "Zombies",
+      "url": "/zombies/"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+node_modules
+coverage
+.cache
+build
+public
+.netlify
+
+# Allowlist Eleventy config
+!.eleventy.js

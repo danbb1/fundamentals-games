@@ -1,0 +1,128 @@
+@import "../../../../node_modules/modern-normalize/modern-normalize.css";
+
+/* Remove default padding */
+ul[class],
+ol[class] {
+  padding: 0;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Set core root defaults */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* Remove list styles on ul, ol elements with a class attribute */
+ul[class],
+ol[class] {
+  list-style: none;
+}
+
+/* Make images easier to work with */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove all animations and transitions for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01s !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  font-family: "Open Sans", "Segoe UI", Roboto, sans-serif;
+  color: var(--secondary);
+  background-color: var(--primary);
+  line-height: 1.6;
+  font-size: var(--500);
+}
+
+
+/* a:not([class]) {
+  color: currentColor;
+  text-decoration-color: var(--dark);
+} */
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+:focus {
+  outline: 2px dashed var(--primary);
+  outline-offset: 0.25rem;
+}
+
+main:focus {
+  outline: none;
+}
+
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+/* High contrast selection because it can help visually-impaired folks read the text easier */
+::selection {
+  color: var(--light);
+  background: rgba(#000000, 0.99);
+}
+
+/* Scrollbar styles */
+::-webkit-scrollbar {
+  height: 1rem;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+  border: 1px solid var(--dark-glare);
+  border-radius: 0.25rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--dark);
+  border-radius: 0.25rem;
+}
+
+button:hover {
+  cursor: pointer;
+}
