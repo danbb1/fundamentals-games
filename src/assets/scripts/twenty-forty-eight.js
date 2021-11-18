@@ -75,6 +75,7 @@ const handleSwipe = _game => {
       _game.handleMove("LEFT")
     }
   }
+  setScore(_game)
 }
 
 const handleTouchStart = event => {
