@@ -35,7 +35,6 @@ const compMove = (_player, _game) => {
       ? _player.getBestMoveMinMax(_game)
       : _player.getBestMoveMonteCarlo(_game)
   _game.handleMove(move[0], move[1])
-  _game.drawGame()
   if (_game.result()) setResult(_game.result())
 }
 
@@ -46,9 +45,11 @@ const handleClick = (event, _canvas, _game, _player) => {
   const y = event.clientY - rect.top
 
   _game.handleClick(x, y)
-  _game.drawGame()
+
   if (!_game.result()) {
-    compMove(_player, _game)
+    setTimeout(() => {
+      compMove(_player, _game)
+    }, 200)
   } else {
     setResult(_game.result())
   }

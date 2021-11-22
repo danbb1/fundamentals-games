@@ -22,9 +22,19 @@ const draw = (context, _game) => {
   setScore(_game)
 }
 
+const setResult = _result => {
+  const result = document.getElementById("result")
+  if (_result === "LOST") {
+    result.textContent = "You lose."
+  } else {
+    result.textContent = ""
+  }
+}
+
 const handleNewGame = _game => {
   _game.newGame()
   setScore(_game)
+  setResult("")
 }
 
 const handleKeyPress = (event, _game) => {
@@ -46,6 +56,7 @@ const handleKeyPress = (event, _game) => {
   }
 
   setScore(_game)
+  if (_game.result === "LOST") setResult("LOST")
 }
 
 const handleResize = (_context, _game) => {
@@ -76,6 +87,7 @@ const handleSwipe = _game => {
     }
   }
   setScore(_game)
+  if (_game.result === "LOST") setResult("LOST")
 }
 
 const handleTouchStart = event => {

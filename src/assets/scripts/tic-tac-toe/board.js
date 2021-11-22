@@ -124,6 +124,7 @@ class Board {
 
     this.state[row][col] = this.player
     this.nextPlayer()
+    if (this.context) this.drawGame()
   }
 
   nextPlayer() {
@@ -233,7 +234,7 @@ class Board {
     this.state = [...Array(3)].map(() => Array(3).fill(null))
     this.player = "X"
     this.context.clearRect(0, 0, this.size, this.size)
-    this.drawBoard()
+    this.drawGame()
   }
 
   clone() {

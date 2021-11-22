@@ -36,6 +36,8 @@ class Board {
     }
     this.score = 0
     this.best = 0
+    this.attemptedMoves = []
+    this.result = ""
   }
 
   setContext(context) {
@@ -171,15 +173,32 @@ class Board {
       linesAbleToMove = changedTiles > 0 ? linesAbleToMove + 1 : linesAbleToMove
     })
 
-    if (linesAbleToMove > 0) this.newTile()
+    if (linesAbleToMove > 0) {
+      this.newTile()
+      this.attemptedMoves = []
+    }
 
     this.context.clearRect(0, 0, this.size, this.size)
     this.drawBoard()
     this.drawTiles()
+
+    // Check if every direction has been attempted
+
+    if (linesAbleToMove === 0 && !this.attemptedMoves.includes(direction)) {
+      this.attemptedMoves.push(direction)
+
+      if (
+        Object.keys(this.directions).every(_direction =>
+          this.attemptedMoves.includes(_direction)
+        )
+      ) {
+        this.result = "LOST"
+      }
+    }
   }
 
   newGame() {
-    this.result = null
+    this.result = ""
     this.score = 0
     this.state = [...Array(this.rows)].map(() => Array(this.cols).fill(null))
     this.context.clearRect(0, 0, this.size, this.size)
